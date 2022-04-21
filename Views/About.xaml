@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="CardGame.Views.About"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CardGame.Views"
+             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"  FontSize="25" >
+
+    <Grid Background="White">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                <TextBlock HorizontalAlignment="Center"  FontWeight="Bold"   >
+                    Занимательные карточки
+                </TextBlock>
+                <TextBlock Margin="10" HorizontalAlignment="Center"  FontWeight="Bold" Text="Описание"/>
+                <TextBlock Margin="10" FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontWeight="DemiBold" Text="Цель данной игры: За отведенное время найти одинаковые карточки, когда все карточки собраны вы переходите на следующий уровень, если же вы не успели за отведенное время собрать все пары, то вы откатываетесь на предыдущий уровень."/>
+                <TextBlock Margin="0,10" HorizontalAlignment="Center"  FontWeight="Bold" Text="Создатели"/>
+                <Image Margin="0,10" Width="300"  Source="/Resources/spedwagon.png"/>
+                <StackPanel HorizontalAlignment="Center">
+                   
+                    <TextBlock HorizontalAlignment="Center"  FontWeight="Bold" Text="Дизайнер: Сафонов Андрей"/>
+                    <TextBlock HorizontalAlignment="Center"  FontWeight="Bold" Text="Разработчик: Мурзак Даниил"/>
+                    
+                </StackPanel>
+
+                <StackPanel Margin="0,20" HorizontalAlignment="Center" Orientation="Horizontal">
+
+                    <TextBlock  FontWeight="Bold"  Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" >
+                                Сайт команды:
+                    </TextBlock>
+
+                    <TextBlock FontWeight="Bold" x:Name="SpedWagonLink" Margin="0,0"   HorizontalAlignment="Center"  TextWrapping="Wrap" VerticalAlignment="Top" 
+                               Foreground="Blue" >
+                        <bh:Interaction.Triggers>
+                            <bh:EventTrigger SourceName="SpedWagonLink" EventName="MouseLeftButtonDown">
+                                <bh:InvokeCommandAction Command="{Binding  OpenSiteCommand}"/>
+                            </bh:EventTrigger>
+                        </bh:Interaction.Triggers>
+                    
+                           spedwagon.online
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Black"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Margin="0,0" HorizontalAlignment="Center" Orientation="Horizontal">
+
+                    <TextBlock  FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
+                                Проект на GitHub:
+                    </TextBlock>
+
+                    <TextBlock FontWeight="Bold" x:Name="GithubLink" Margin="0,0"   Grid.Column="1" HorizontalAlignment="Center"  TextWrapping="Wrap" VerticalAlignment="Top" 
+                                Foreground="Blue"    >
+                      <bh:Interaction.Triggers>
+                            <bh:EventTrigger SourceName="GithubLink" EventName="MouseLeftButtonDown">
+                                <bh:InvokeCommandAction Command="{Binding OpenGithubCommand}"/>
+                            </bh:EventTrigger>
+                        </bh:Interaction.Triggers>
+                          Перейти
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Black"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+
+                    </TextBlock>
+                </StackPanel>
+                <Button x:Name="ExitToMenu" Content="Выйти в меню" HorizontalAlignment="Center" Margin="20" Command="{Binding CloseCommand}"/>
+            </StackPanel>
+           
+
+
+        </ScrollViewer>
+    </Grid>
+</UserControl>

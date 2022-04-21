@@ -1,0 +1,116 @@
+﻿<Window x:Class="CardGame.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CardGame"
+        xmlns:views="clr-namespace:CardGame.Views"
+        xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" FontSize="28" FontFamily="/Resources/#bahnschrift codensed" >
+    <Window.Resources>
+        <Style TargetType="Border" 
+               x:Key="BorderStyle">
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Background" Value="Wheat"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="220"/>
+
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Gold"/>
+                </Trigger>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Duration="0:0:0:0.2"  To="20,20,20,10" 
+                                                         Storyboard.TargetProperty="Margin"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Duration="0:0:0:0.2"  To="20" 
+                                                         Storyboard.TargetProperty="Margin"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+            </Style.Triggers>
+        </Style>
+
+      
+    </Window.Resources>
+    <Window.DataContext>
+        <local:MainView/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Image Source="/Resources/spedwagon.png"  Width="300"/>
+            <TextBlock  Grid.Column="1" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                        Text="Занимательные карточки" 
+                         FontSize="28" ></TextBlock>
+        </StackPanel>
+        <Grid Grid.Row="1"  HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" x:Name="PlayGame" Grid.Row="0" Style="{StaticResource BorderStyle}">
+                <bh:Interaction.Triggers>
+                    <bh:EventTrigger SourceName="PlayGame" EventName="MouseDown">
+                        <bh:InvokeCommandAction Command="{Binding PlayCommand}"/>
+                    </bh:EventTrigger>
+                </bh:Interaction.Triggers>
+                <Border  CornerRadius="2" Margin="5">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"> Играть</TextBlock>
+                </Border>
+
+            </Border>
+
+            <Border x:Name="About" Grid.Column="1" Style="{StaticResource BorderStyle}"  >
+                <bh:Interaction.Triggers>
+                    <bh:EventTrigger SourceName="About" EventName="MouseDown">
+                        <bh:InvokeCommandAction Command="{Binding  AboutCommand}"/>
+                    </bh:EventTrigger>
+                </bh:Interaction.Triggers>
+                <Border  CornerRadius="2" Margin="5">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"> Об игре</TextBlock>
+                </Border>
+
+            </Border>
+
+            
+            <Border Grid.Column="2" x:Name="ExitGame" Grid.Row="0" Style="{StaticResource BorderStyle}">
+                <bh:Interaction.Triggers>
+                    <bh:EventTrigger SourceName="ExitGame" EventName="MouseDown">
+                        <bh:InvokeCommandAction Command="{Binding ExitCommand}"/>
+                    </bh:EventTrigger>
+                </bh:Interaction.Triggers>
+                <Border  CornerRadius="2" Margin="5">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"> Выйти</TextBlock>
+                </Border>
+
+            </Border>
+        </Grid>
+        <views:About Visibility="{Binding  DataContext.AboutViewIsVisible,RelativeSource= {RelativeSource AncestorType=Window}}" DataContext="{Binding AboutViewModel}"  Grid.ColumnSpan="20" Grid.RowSpan="20"/>
+        <views:GameWindow Visibility="{Binding  DataContext.GameViewIsVisible,RelativeSource= {RelativeSource AncestorType=Window}}" DataContext="{Binding GameViewModel}" Grid.ColumnSpan="20" Grid.RowSpan="20"/>
+       
+
+    </Grid>
+</Window>
